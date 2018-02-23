@@ -53,6 +53,16 @@ public class BusinessRuleTest {
     }
 
     @Test
+    public void noBusinessRuleColumnAnnotatedField() throws FileNotFoundException {
+        File rulesFile = new File("src/test/resources/InterestRateBusinessRule.csv");
+        Reader rulesFileReader = new FileReader(rulesFile);
+        thrown.expect(BusinessRuleClassException.class);
+        thrown.expectMessage("The business rule class net.binarypaper.paper.rules.NoBusinessRuleColumnAnnotatedField "
+                + "does not have any fields annotated with @BusinessRuleColumn");
+        BusinessRule<Client> businessRule = new BusinessRule<>(NoBusinessRuleColumnAnnotatedField.class, rulesFileReader);
+    }
+
+    @Test
     public void businessRuleClassWithoutBusinessRuleLogicMethod() throws FileNotFoundException {
         File rulesFile = new File("src/test/resources/InterestRateBusinessRule.csv");
         Reader rulesFileReader = new FileReader(rulesFile);

@@ -97,6 +97,10 @@ public class BusinessRule<T> {
                 field.setAccessible(true);
             }
         }
+        if (ruleFields.isEmpty()) {
+            throw new BusinessRuleClassException("The business rule class " + businessRuleClass.getName()
+                    + " does not have any fields annotated with @BusinessRuleColumn");
+        }
         // Parse the rules file with Apache Commons CSV
         try {
             // Read the file bytes with Apache Commons CSV
