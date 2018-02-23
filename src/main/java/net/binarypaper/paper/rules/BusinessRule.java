@@ -82,6 +82,10 @@ public class BusinessRule<T> {
             BusinessRuleColumn businessRuleColumn = field.getAnnotation(BusinessRuleColumn.class);
             if (businessRuleColumn != null) {
                 String rulesFileColumn = field.getName();
+                if (!businessRuleColumn.value().isEmpty() && !businessRuleColumn.header().isEmpty()) {
+                    throw new BusinessRuleClassException("The business rule column " + rulesFileColumn
+                            + " @BusinessRuleColumn annotation may declare either a value or a header but not both");
+                }
                 if (!businessRuleColumn.value().isEmpty()) {
                     rulesFileColumn = businessRuleColumn.value();
                 }
@@ -106,7 +110,7 @@ public class BusinessRule<T> {
                         BigDecimal businessRuleFieldValue = new BigDecimal(record.get(ruleFileColumns.get(i)).trim());
                         System.out.println(ruleFileColumns.get(i) + ":" + businessRuleFieldValue);
                         ruleFields.get(i).set(businessRule, businessRuleFieldValue);
-            }
+                    }
                 }
                 businessRuleRows.add(businessRule);
             }

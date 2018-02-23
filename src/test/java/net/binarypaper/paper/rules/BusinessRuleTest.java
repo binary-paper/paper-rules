@@ -35,7 +35,7 @@ public class BusinessRuleTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testBusinessRuleClassWithoutAnnotation() throws FileNotFoundException {
+    public void businessRuleClassWithoutAnnotation() throws FileNotFoundException {
         File rulesFile = new File("src/test/resources/InterestRateBusinessRule.csv");
         Reader rulesFileReader = new FileReader(rulesFile);
         thrown.expect(BusinessRuleClassException.class);
@@ -44,7 +44,16 @@ public class BusinessRuleTest {
     }
 
     @Test
-    public void testBusinessRuleClassWithoutBusinessRuleLogicMethod() throws FileNotFoundException {
+    public void businessRuleColumnFieldWithValueAndHeader() throws FileNotFoundException {
+        File rulesFile = new File("src/test/resources/InterestRateBusinessRule.csv");
+        Reader rulesFileReader = new FileReader(rulesFile);
+        thrown.expect(BusinessRuleClassException.class);
+        thrown.expectMessage("The business rule column someField @BusinessRuleColumn annotation may declare either a value or a header but not both");
+        BusinessRule<Client> businessRule = new BusinessRule<>(BusinessRuleColumnFieldWithValueAndHeader.class, rulesFileReader);
+    }
+
+    @Test
+    public void businessRuleClassWithoutBusinessRuleLogicMethod() throws FileNotFoundException {
         File rulesFile = new File("src/test/resources/InterestRateBusinessRule.csv");
         Reader rulesFileReader = new FileReader(rulesFile);
         thrown.expect(BusinessRuleClassException.class);
@@ -53,7 +62,7 @@ public class BusinessRuleTest {
     }
 
     @Test
-    public void testBusinessRuleLogicMethodWithInvalidNumberOfParameters() throws FileNotFoundException {
+    public void businessRuleLogicMethodWithInvalidNumberOfParameters() throws FileNotFoundException {
         File rulesFile = new File("src/test/resources/InterestRateBusinessRule.csv");
         Reader rulesFileReader = new FileReader(rulesFile);
         thrown.expect(BusinessRuleClassException.class);
@@ -62,7 +71,7 @@ public class BusinessRuleTest {
     }
 
     @Test
-    public void testInterestRateBusinessRule() throws FileNotFoundException {
+    public void interestRateBusinessRule() throws FileNotFoundException {
         File rulesFile = new File("src/test/resources/InterestRateBusinessRule.csv");
         Reader rulesFileReader = new FileReader(rulesFile);
         BusinessRule<Client> businessRule = new BusinessRule<>(InterestRateBusinessRule.class, rulesFileReader);

@@ -22,8 +22,7 @@ import lombok.Data;
  * A simple example business rule to calculate the interest rate based on the
  * income range.
  *
- * @author
- * <a href="mailto:willy.gadney@binarypaper.net">Willy Gadney</a>
+ * @author <a href="mailto:willy.gadney@binarypaper.net">Willy Gadney</a>
  */
 @BusinessRuleTable
 @Data
