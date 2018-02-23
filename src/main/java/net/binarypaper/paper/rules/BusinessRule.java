@@ -104,10 +104,11 @@ public class BusinessRule<T> {
                     if (!record.get(ruleFileColumns.get(i)).trim().isEmpty()) {
 //                        String businessRuleFieldValue = record.get(ruleFileColumns.get(i)).trim();
                         BigDecimal businessRuleFieldValue = new BigDecimal(record.get(ruleFileColumns.get(i)).trim());
-                        System.out.println(record.get(ruleFileColumns.get(i) + ":" + ruleFileColumns.get(i)).trim() + "-->" + businessRuleFieldValue);
-//                        ruleFields.get(i).set(businessRule, businessRuleFieldValue);
-                    }
+                        System.out.println(ruleFileColumns.get(i) + ":" + businessRuleFieldValue);
+                        ruleFields.get(i).set(businessRule, businessRuleFieldValue);
+            }
                 }
+                businessRuleRows.add(businessRule);
             }
             reader.close();
         } catch (IOException ex) {
